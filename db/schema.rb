@@ -10,13 +10,120 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526025255) do
+ActiveRecord::Schema.define(version: 20170528004652) do
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "username"
+  create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 50
+    t.bigint "artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "release"
+    t.index ["artist_id"], name: "index_albums_on_artist_id"
+  end
+
+  create_table "albums_genres", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "genre_id", null: false
+    t.bigint "album_id", null: false
+    t.index ["album_id"], name: "index_albums_genres_on_album_id"
+    t.index ["genre_id"], name: "index_albums_genres_on_genre_id"
+  end
+
+  create_table "artist_perform_songs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "artist_id", null: false
+    t.bigint "song_id", null: false
     t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id", "song_id"], name: "index_artist_perform_songs_on_artist_id_and_song_id", unique: true
+    t.index ["artist_id"], name: "index_artist_perform_songs_on_artist_id"
+    t.index ["song_id"], name: "index_artist_perform_songs_on_song_id"
+  end
+
+  create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 50, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "artists_genres", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "genre_id", null: false
+    t.bigint "artist_id", null: false
+    t.index ["artist_id"], name: "index_artists_genres_on_artist_id"
+    t.index ["genre_id"], name: "index_artists_genres_on_genre_id"
+  end
+
+  create_table "follows", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "follower_id", null: false
+    t.string "following_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id", "following_id"], name: "index_follows_on_follower_id_and_following_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["following_id"], name: "index_follows_on_following_id"
+  end
+
+  create_table "genres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres_songs", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "genre_id", null: false
+    t.bigint "song_id", null: false
+    t.index ["genre_id"], name: "index_genres_songs_on_genre_id"
+    t.index ["song_id"], name: "index_genres_songs_on_song_id"
+  end
+
+  create_table "interactions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "kind"
+    t.string "interactable_type"
+    t.bigint "interactable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_id", limit: 50
+    t.index ["interactable_type", "interactable_id"], name: "index_interactions_on_interactable_type_and_interactable_id"
+    t.index ["user_id"], name: "index_interactions_on_user_id"
+  end
+
+  create_table "playlists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.string "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
+  create_table "playlists_songs", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "playlist_id", null: false
+    t.bigint "song_id", null: false
+    t.index ["playlist_id"], name: "index_playlists_songs_on_playlist_id"
+    t.index ["song_id"], name: "index_playlists_songs_on_song_id"
+  end
+
+  create_table "song_composes_albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "song_id"
+    t.bigint "album_id"
+    t.integer "track_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_song_composes_albums_on_album_id"
+    t.index ["song_id", "album_id"], name: "index_song_composes_albums_on_song_id_and_album_id", unique: true
+    t.index ["song_id"], name: "index_song_composes_albums_on_song_id"
+  end
+
+  create_table "songs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 50, null: false
+    t.integer "lenght", null: false
+    t.date "release"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", primary_key: "email", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "encrypted_password", default: "", null: false
+    t.string "username", null: false
+    t.integer "role", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -31,4 +138,13 @@ ActiveRecord::Schema.define(version: 20170526025255) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "albums", "artists"
+  add_foreign_key "artist_perform_songs", "artists"
+  add_foreign_key "artist_perform_songs", "songs"
+  add_foreign_key "follows", "users", column: "follower_id", primary_key: "email"
+  add_foreign_key "follows", "users", column: "following_id", primary_key: "email"
+  add_foreign_key "interactions", "users", primary_key: "email"
+  add_foreign_key "playlists", "users", primary_key: "email"
+  add_foreign_key "song_composes_albums", "albums"
+  add_foreign_key "song_composes_albums", "songs"
 end

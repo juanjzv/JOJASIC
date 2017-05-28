@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 # Use mysql as the database for Active Record
@@ -39,6 +38,13 @@ gem 'pundit'
 
 # Use figaro to store secrets (configuration data) safely and easier
 gem 'figaro'
+
+# Use foundation gems for design
+gem 'foundation-rails'
+
+# ----------------------- FILE HANDLING -----------------------
+# Use the magic of paperclip to handle file uploading (profile images and songs)
+gem 'paperclip', '~> 5.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
