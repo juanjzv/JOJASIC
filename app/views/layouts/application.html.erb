@@ -20,6 +20,7 @@
     <% if (user_signed_in?)%>
       <h1>Bienvenido <%= current_user.username %></h1>
     <% end%>
+
     <%= yield %>
     <%= console %>
   </body>

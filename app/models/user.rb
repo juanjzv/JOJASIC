@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many(:follows, through: :follows_to, source: :following) # Objetos tipo Usuario que este usuario sigue
 
   has_many :interactions
+  has_many :playlists
+
+  enum role: [:user, :admin]
 
 end
 
