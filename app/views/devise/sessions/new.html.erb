@@ -1,26 +1,49 @@
-<h2>Log in</h2>
+<div class="row column text-center">
+  <h2>Log in</h2>
+</div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="row align-center">
+  <div class="medium-4 text-center">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="row">
+          <div class="small-3 columns">
+            <%= f.label :email, class: 'text-right middle text-center'%><br />
+          </div>
+          <div class="small-9 columns">
+            <%= f.email_field :email, autofocus: true, autocomplete: 'on' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-3 columns">
+            <%= f.label :password, class: 'text-right middle text-center' %><br />
+          </div>
+          <div class="small-9 columns">
+            <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <% if devise_mapping.rememberable? %>
+        <div class="row align-center text-center">
+          <div class="column small-4">
+            <p>Recuérdame</p>
+          </div>
+          <div class="column small-4">
+            <div class="switch tiny">
+              <%= f.check_box :remember_me, class: 'switch-input' %>
+              <%= f.label :remember_me, "<span class='show-for-sr'>Recuérdame</span>".html_safe, class: 'switch-paddle' %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="row align-center">
+          <div class="columns">
+            <%= f.button "Inicia Sesión", class: 'button expanded' %>
+          </div>
+        </div>
+    <% end %>
+    <div class="row align-spaced">
+      <%= render "devise/shared/links" %>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>

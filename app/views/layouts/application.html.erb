@@ -1,27 +1,132 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>JOJASIC</title>
-    <%= csrf_meta_tags %>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <title><%= content_for?(:title) ? yield(:title) : "JOJASIC" %></title>
 
-  <body>
-    <% if (user_signed_in?) %>
-      <%= link_to('Cerrar sesión',destroy_user_session_path, method: 'delete' ) %>
-    <% else %>
-      <%= link_to('Iniciar sesión', new_user_session_path) %>
-      <%= link_to('Crear cuenta', new_user_registration_path) %>
-    <%end%>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if (user_signed_in?)%>
-      <h1>Bienvenido <%= current_user.username %></h1>
-    <% end%>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application", 'data-turbolinks-track': false %>
+  <%= csrf_meta_tags %>
 
+</head>
+
+<body>
+<div class="multilevel-offcanvas off-canvas position-right" id="offCanvasRight" data-off-canvas>
+
+  <ul class="vertical menu" data-accordion-menu>
+    <% if user_signed_in? %>
+      <li><a href="#">PERFIL</a>
+        <ul class="menu vertical nested">
+          <li><a href="#">Ver perfil</a></li>
+          <li><%= link_to('Editar cuenta', edit_user_registration_path)%></li>
+        </ul>
+      </li>
+    <% end %>
+    <li><a href="#">PRODUCTS</a>
+      <ul class="menu vertical nested">
+        <li><a href="#">Product 1</a></li>
+        <li><a href="#">Product 2</a></li>
+        <li><a href="#">Product 3</a></li>
+      </ul>
+    </li>
+    <li><a href="#">CITIES</a>
+      <ul class="menu vertical nested">
+        <li><a href="#">London</a></li>
+        <li><a href="#">New York</a></li>
+        <li><a href="#">Paris</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="vertical menu">
+    <li class="off-canvas-menu-item"><a href="#">Tour</a></li>
+    <li><a href="#">Login</a></li>
+    <li><a href="#">Register</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">Support</a></li>
+  </ul>
+  <ul class="vertical menu">
+    <li><a href="#">Journal</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Terms & Conditions</a></li>
+    <li><a href="#">Careers</a></li>
+    <li><a href="#">Students</a></li>
+    <% if user_signed_in? %>
+      <li><%= link_to('Cerrar sesión', destroy_user_session_path, method: 'delete') %></li>
+    <% end %>
+  </ul>
+  <ul class="menu simple social-links">
+    <li><a href="#" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+    <li><a href="#" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+    <li><a href="#" target="_blank"><i class="fa fa-github-square" aria-hidden="true"></i></a></li>
+    <li><a href="#" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+  </ul>
+</div>
+
+<div class="off-canvas-content" data-off-canvas-content>
+  <div class="nav-bar">
+    <div class="nav-bar-left">
+      <a class="nav-bar-logo"><img class="logo" src="http://placehold.it/150x30"></a>
+    </div>
+    <div class="nav-bar-right">
+      <ul class="menu">
+        <li class="hide-for-small-only"><%= link_to('JOJASIC', root_path) %></li>
+        <% if not user_signed_in? %>
+            <li class="hide-for-small-only"><%= link_to('LOGIN', new_user_session_path) %></li>
+        <% else %>
+          <li class="hide-for-small-only"><%= link_to(current_user.username, edit_user_registration_path) %></li>
+        <% end %>
+        <li>
+        <li>
+          <button class="offcanvas-trigger" type="button" data-open="offCanvasRight">
+            <span class="offcanvas-trigger-text hide-for-small-only">Menu</span>
+            <div class="hamburger">
+              <span class="line"></span>
+              <span class="line"></span>
+              <span class="line"></span>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="body-info">
     <%= yield %>
-    <%= console %>
-  </body>
+  </div>
+</div>
+
+
+
+
+
+
+
+<%# Para cada elemento del menú, se checa el nombre de controllador actual, y la acción actual del mismo
+      para saber a cuál ponerle la clase 'active' que muestra las lineas sobre el elemento
+%>
+<!--<div class="row" id="nav-row">-->
+  <!--<div class="column medium-10 medium-offset-1 small-3" id="nav-container">-->
+    <!--<nav role="navigation">-->
+      <!--<ul id="overlay-nav-menu" class="menu menu-hover-lines align-center">-->
+        <!--<li class='<%= (current_action_is('visitors','index'))?'active':''%>'><%= link_to('JOJASIC', root_path) %></li>-->
+        <!--<% if user_signed_in? %>-->
+            <!--<li><%= link_to('Cerrar Sesión', destroy_user_session_path, method: 'delete')%></li>-->
+            <!--<% else %>-->
+            <!--<li class='<%= (current_action_is('devise/sessions','new'))?'active':''%>'><%= link_to('Iniciar sesión', new_user_session_path) %></li>-->
+            <!--<% end %>-->
+        <!--<% if not user_signed_in? %>-->
+            <!--<li class='<%= (current_action_is('devise/registrations','new'))?'active':''%>'><%= link_to('Registro', new_user_registration_path)%></li>-->
+            <!--<% end %>-->
+        <!--<li><a href="#">Blog</a></li>-->
+      <!--</ul>-->
+      <!--<a data-toggle-menu class="overlay-nav-menu-toggle" href="#overlay-nav-menu" data-turbolinks="false"><i class="fa fa-plus"></i></a>-->
+    <!--</nav>-->
+  <!--</div>-->
+  <!--<div class="column hide-for-medium small-9 text-center"><%= image_tag('jojasic.png', class: 'title-for-small') %></div>-->
+<!--</div>-->
+
+
+
+</body>
 </html>

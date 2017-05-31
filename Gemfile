@@ -41,6 +41,10 @@ gem 'figaro'
 
 # Use foundation gems for design
 gem 'foundation-rails'
+# Foundation needs jquery
+gem 'jquery-rails'
+# Nice icons
+gem "font-awesome-rails"
 
 # ----------------------- FILE HANDLING -----------------------
 # Use the magic of paperclip to handle file uploading (profile images and songs)
