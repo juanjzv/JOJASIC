@@ -14,16 +14,14 @@
 
 <body>
 <div class="multilevel-offcanvas off-canvas position-right" id="offCanvasRight" data-off-canvas>
-
+  <% if user_signed_in? %>
   <ul class="vertical menu" data-accordion-menu>
-    <% if user_signed_in? %>
       <li><a href="#">PERFIL</a>
         <ul class="menu vertical nested">
           <li><a href="#">Ver perfil</a></li>
           <li><%= link_to('Editar cuenta', edit_user_registration_path)%></li>
         </ul>
       </li>
-    <% end %>
     <li><a href="#">PRODUCTS</a>
       <ul class="menu vertical nested">
         <li><a href="#">Product 1</a></li>
@@ -31,31 +29,36 @@
         <li><a href="#">Product 3</a></li>
       </ul>
     </li>
-    <li><a href="#">CITIES</a>
-      <ul class="menu vertical nested">
-        <li><a href="#">London</a></li>
-        <li><a href="#">New York</a></li>
-        <li><a href="#">Paris</a></li>
-      </ul>
-    </li>
   </ul>
   <ul class="vertical menu">
-    <li class="off-canvas-menu-item"><a href="#">Tour</a></li>
-    <li><a href="#">Login</a></li>
+    <li class="off-canvas-menu-item"><%= link_to('Recomendaciones',) %></li>
+    <li><%= link_to('Buscar') %></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">Support</a></li>
+  </ul>
+  <% end %>
+  <% unless user_signed_in? %>
+  <ul class="vertical menu">
+    <li class="off-canvas-menu-item"><%= link_to('Registro', new_user_registration_path) %></li>
+    <li><%= link_to('Login', new_user_session_path) %></li>
     <li><a href="#">Register</a></li>
     <li><a href="#">Pricing</a></li>
     <li><a href="#">Support</a></li>
   </ul>
+  <% end %>
+  <% if user_signed_in? %>
   <ul class="vertical menu">
     <li><a href="#">Journal</a></li>
     <li><a href="#">FAQ</a></li>
     <li><a href="#">Terms & Conditions</a></li>
     <li><a href="#">Careers</a></li>
     <li><a href="#">Students</a></li>
-    <% if user_signed_in? %>
-      <li><%= link_to('Cerrar sesión', destroy_user_session_path, method: 'delete') %></li>
+    <% if current_user.admin? %>
+    <li><a href="#">Panel Administración</a></li>
     <% end %>
+    <li><%= link_to('Cerrar sesión', destroy_user_session_path, method: 'delete') %></li>
   </ul>
+  <% end %>
   <ul class="menu simple social-links">
     <li><a href="#" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
     <li><a href="#" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
@@ -95,38 +98,5 @@
     <%= yield %>
   </div>
 </div>
-
-
-
-
-
-
-
-<%# Para cada elemento del menú, se checa el nombre de controllador actual, y la acción actual del mismo
-      para saber a cuál ponerle la clase 'active' que muestra las lineas sobre el elemento
-%>
-<!--<div class="row" id="nav-row">-->
-  <!--<div class="column medium-10 medium-offset-1 small-3" id="nav-container">-->
-    <!--<nav role="navigation">-->
-      <!--<ul id="overlay-nav-menu" class="menu menu-hover-lines align-center">-->
-        <!--<li class='<%= (current_action_is('visitors','index'))?'active':''%>'><%= link_to('JOJASIC', root_path) %></li>-->
-        <!--<% if user_signed_in? %>-->
-            <!--<li><%= link_to('Cerrar Sesión', destroy_user_session_path, method: 'delete')%></li>-->
-            <!--<% else %>-->
-            <!--<li class='<%= (current_action_is('devise/sessions','new'))?'active':''%>'><%= link_to('Iniciar sesión', new_user_session_path) %></li>-->
-            <!--<% end %>-->
-        <!--<% if not user_signed_in? %>-->
-            <!--<li class='<%= (current_action_is('devise/registrations','new'))?'active':''%>'><%= link_to('Registro', new_user_registration_path)%></li>-->
-            <!--<% end %>-->
-        <!--<li><a href="#">Blog</a></li>-->
-      <!--</ul>-->
-      <!--<a data-toggle-menu class="overlay-nav-menu-toggle" href="#overlay-nav-menu" data-turbolinks="false"><i class="fa fa-plus"></i></a>-->
-    <!--</nav>-->
-  <!--</div>-->
-  <!--<div class="column hide-for-medium small-9 text-center"><%= image_tag('jojasic.png', class: 'title-for-small') %></div>-->
-<!--</div>-->
-
-
-
 </body>
 </html>

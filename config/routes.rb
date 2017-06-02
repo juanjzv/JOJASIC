@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'music/discover'
+  get 'music/discover', as: :discover
 
   get 'search', to: 'music#search'
 

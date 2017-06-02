@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528004652) do
+ActiveRecord::Schema.define(version: 20170531193852) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", limit: 50
@@ -122,6 +122,10 @@ ActiveRecord::Schema.define(version: 20170528004652) do
     t.date "release"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "song_file_file_name"
+    t.string "song_file_content_type"
+    t.integer "song_file_file_size"
+    t.datetime "song_file_updated_at"
   end
 
   create_table "users", primary_key: "email", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -138,6 +142,10 @@ ActiveRecord::Schema.define(version: 20170528004652) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

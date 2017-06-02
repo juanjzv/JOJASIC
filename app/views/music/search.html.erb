@@ -20,7 +20,8 @@
     <div class="row column text-left">
       <h2>Canciones que coinciden con tu búsqueda</h2>
     </div>
-    <div class="row column text-center"> 
+    <div class="row column text-center">
+      <% unless @songs.empty? %>
       <table>
         <thead>
         <tr>
@@ -45,11 +46,15 @@
         <% end %>
         </tbody>
       </table>
+      <% else %>
+      <h3>No hay coincidencias con tu búsqueda</h3>
+      <% end %>
     </div>
     <div class="row column text-left">
       <h2>Álbumes que coinciden con tu búsqueda</h2>
     </div>
     <div class="row column text-center">
+      <% unless @albums.empty? %>
       <table>
         <thead>
         <tr>
@@ -72,11 +77,15 @@
         <% end %>
         </tbody>
       </table>
+      <% else %>
+      <h3>No hay coincidencias con tu búsqueda</h3>
+      <% end %>
     </div>
     <div class="row column text-left">
       <h2>Artistas que coinciden con tu búsqueda</h2>
     </div>
     <div class="row column text-center">
+      <% unless @artists.empty? %>
       <table>
         <thead>
         <tr>
@@ -97,6 +106,9 @@
         <% end %>
         </tbody>
       </table>
+      <% else %>
+      <h3>No hay coincidencias con tu búsqueda</h3>
+      <% end %>
     </div>
   </div>
 </div>

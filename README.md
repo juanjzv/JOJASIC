@@ -1,19 +1,24 @@
-# README
+# JOJASIC
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Music Web App developed for Database course.
 
-Things you may want to cover:
+Important things:
 
-* Ruby version
+* Ruby version 2.4.0
 
-* System dependencies
+* System dependencies: <br><br>
+Imagemagick has to be installed in order to handle file uploading.
+
 
 * Configuration
 
-* Database creation
+* Database creation <br><br>
+Database configuration works with mysql
 
-* Database initialization
+* Database initialization<br><br>
+**First:** Copy song files (not yet uploades to some cloud) into /app/assets/audios/<br>
+**Then:** make sure name files match with the ones in seeds.rb<br>
+**Finally:** rake db:setup
 
 * How to run the test suite
 

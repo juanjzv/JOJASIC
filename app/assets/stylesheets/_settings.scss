@@ -49,12 +49,20 @@
 
 // 1. Global
 // ---------
+$proyect-blue: #1b3e55;
+$proyect-turq: #5dbfcd;
+$proyect-dturq: #529ea9;
+$proyect-light-gray: #fffefc;
+$proyect-red: #de4f4f;
+$proyect-yellow: #ffb932;
+$proyect-gray: #dee9f2;
+
 
 $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #1779ba,
+  primary: #5dbfcd, //#1779ba,
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,
