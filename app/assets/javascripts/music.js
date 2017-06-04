@@ -9,3 +9,12 @@ $(".search-field").focus();
 })
 });
 
+
+$(function() {
+    $('.button-like')
+        .bind('click', function(event) {
+            $(this).toggleClass("liked");
+        })
+});
+
+

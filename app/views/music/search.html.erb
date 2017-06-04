@@ -29,19 +29,21 @@
           <th>Álbum</th>
           <th>Artista</th>
           <th>Géneros</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <% for s in @songs do %>
             <tr>
-              <th><%= s.name %></th>
-              <th><%= s.albums[0].name %></th>
-              <th><%= s.albums[0].artist.name %></th>
-              <th>
+              <td><%= s.name %></td>
+              <td><%= s.albums[0].name %></td>
+              <td><%= s.albums[0].artist.name %></td>
+              <td>
                 <% for g in s.genres do %>
                     <%= g.name %>
                 <% end %>
-              </th>
+              </td>
+              <td><%= audio_tag s.song_file.url, controls: true %></td>
             </tr>
         <% end %>
         </tbody>

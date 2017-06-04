@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'visitors/index'
 
-  devise_for :users, skip: :registrations
+  devise_for :users, skip: :registrations, controllers: { omniauth_callbacks: "users/omniauth_callbacks"}
   devise_scope :user do
     resource :registration,
              only: [:new, :create, :edit, :update],
@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   end
 
   root 'visitors#index'
+
+  resources :users, constraints: {id: /([^\/]+?)(?=\.json|\.html|$|\/)/}, except: [:new, :create]
+  resources :playlists
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

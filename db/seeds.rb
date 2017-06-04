@@ -210,6 +210,10 @@ ximeml = User.create(email: 'ana.ximeena@hotmail.com', username: 'ximeml', passw
 miguelgc = User.create(email: 'jgarciacebada@yahoo.com.mx', username: 'miguelgc', password: 'miguelgc', role: :user)
 rooy = User.create(email: 'rba.tecno@gmail.com', username: 'rooy', password: 'rooy', role: :user)
 
+# User model has a before_create method that sets the default role to user, so we had to set this after creation
+juanzv.admin!
+ximeml.admin!
+
 juanplaylist = Playlist.create(name: 'Juan Favorites', user_id: juanzv.id)
 ximenaplaylist = Playlist.create(name: "Xime's Playlist", user_id: ximeml.id)
 jefeplaylist = Playlist.create(name: 'La Jefa De Las Listas', user_id: miguelgc.id)

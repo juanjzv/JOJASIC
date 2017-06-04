@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+<div class="row align-center">
+  <div class="columns medium-11">
+    <div class="row text-center">
+      <div class="columns medium-6">
+        <h1><%= @user.username %></h1>
+      </div>
+      <div class="columns medium-6">
+        <%= image_tag @user.avatar.url %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns medium-1"><h2>Listas</h2></div>
+    </div>
+    <div class="row column">
+      <table>
+        <% for p in @playlists %>
+            <tr>
+              <td><%= p.name %></td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="row">
+      <div class="columns medium-1"><h2>Likes</h2></div>
+    </div>
+    <div class="row column">
+      <table>
+        <% unless @liked_songs.empty? %>
+            <% for s in @liked_songs %>
+                <tr>
+                  <td><%= s.name %></td>
+                </tr>
+            <% end %>
+        <% end %>
+        <% unless @liked_albums.empty? %>
+            <% for a in @liked_albums %>
+                <tr>
+                  <td><%= a.name %></td>
+                </tr>
+            <% end %>
+        <% end %>
+        <% unless @liked_artist.empty? %>
+            <% for a in @liked_artists %>
+                <tr>
+                  <td><%= a.name %></td>
+                </tr>
+            <% end %>
+        <% end %>
+        <% unless @liked_playlists.empty? %>
+            <% for p in @liked_playlists %>
+                <tr>
+                  <td><%= p.name %></td>
+                </tr>
+            <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

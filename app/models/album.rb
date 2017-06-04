@@ -5,6 +5,9 @@ class Album < ApplicationRecord
   has_many :interactions, as: :interactable
   belongs_to  :artist
 
+  has_attached_file :image
+  validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+
   # 'class << self' allows inside methods to be called as Son.[method_name].
   class << self
     def in_order

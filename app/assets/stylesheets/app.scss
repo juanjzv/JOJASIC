@@ -1,5 +1,6 @@
 @import 'foundation_and_overrides';
 @import 'search_bar';
+@import "button-like";
 $nav-text-color: $white;
 $nav-height: 75px;
 $nav-background: #2c3840;
@@ -15,6 +16,10 @@ $offcanvas-padding: 20px;
 
   .nav-bar-logo {
     padding: 1.8rem;
+
+    .logo {
+      width: 5rem;
+    }
   }
 
   li {

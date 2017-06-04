@@ -2,6 +2,7 @@ class MusicController < ApplicationController
   before_action :authenticate_user!
 
   def discover
+    p "new_songs"
     @new_songs = Song.recent(5).includes( :genres, albums: [:artist])
     @new_albums = Album.recent(5).includes(:artist)
   end

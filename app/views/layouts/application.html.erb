@@ -18,17 +18,19 @@
   <ul class="vertical menu" data-accordion-menu>
       <li><a href="#">PERFIL</a>
         <ul class="menu vertical nested">
-          <li><a href="#">Ver perfil</a></li>
+          <li><%= link_to('Ver perfil', current_user) %></li>
           <li><%= link_to('Editar cuenta', edit_user_registration_path)%></li>
         </ul>
       </li>
-    <li><a href="#">PRODUCTS</a>
+    <% if current_user.admin? %>
+    <li><a href="#">ADMINISTRACIÓN</a>
       <ul class="menu vertical nested">
-        <li><a href="#">Product 1</a></li>
+        <li><%= link_to('Usuarios', users_path) %></li>
         <li><a href="#">Product 2</a></li>
         <li><a href="#">Product 3</a></li>
       </ul>
     </li>
+    <% end %>
   </ul>
   <ul class="vertical menu">
     <li class="off-canvas-menu-item"><%= link_to('Recomendaciones',) %></li>
@@ -70,7 +72,7 @@
 <div class="off-canvas-content" data-off-canvas-content>
   <div class="nav-bar">
     <div class="nav-bar-left">
-      <a class="nav-bar-logo"><img class="logo" src="http://placehold.it/150x30"></a>
+      <a class="nav-bar-logo"><%= image_tag 'jojasic.png', class: 'logo'  %></a>
     </div>
     <div class="nav-bar-right">
       <ul class="menu">
@@ -96,6 +98,7 @@
   </div>
   <div class="body-info">
     <%= yield %>
+    <%= console %>
   </div>
 </div>
 </body>

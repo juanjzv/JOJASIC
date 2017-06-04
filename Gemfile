@@ -32,6 +32,10 @@ gem 'jbuilder', '~> 2.5'
 # ---------------- AUTHENTICATION GEMS ------------------------
 # Use devise for user authentication
 gem 'devise'
+# Use Omniauth to add Social network Login
+gem 'omniauth'
+# Use omniauth-facebook
+gem 'omniauth-facebook'
 # Use pundit for user authorization
 gem 'pundit'
 # ---------------- END AUTHENTICATION GEMS ------------------------

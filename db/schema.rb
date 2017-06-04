@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531193852) do
+ActiveRecord::Schema.define(version: 20170604022843) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", limit: 50
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 20170531193852) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "release"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
   end
 
@@ -44,6 +48,10 @@ ActiveRecord::Schema.define(version: 20170531193852) do
     t.string "name", limit: 50, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "artists_genres", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -146,25 +154,27 @@ ActiveRecord::Schema.define(version: 20170531193852) do
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "albums", "artists"
-  add_foreign_key "albums_genres", "albums"
-  add_foreign_key "albums_genres", "genres"
-  add_foreign_key "artist_perform_songs", "artists"
-  add_foreign_key "artist_perform_songs", "songs"
-  add_foreign_key "artists_genres", "artists"
-  add_foreign_key "artists_genres", "genres"
-  add_foreign_key "follows", "users", column: "follower_id", primary_key: "email"
-  add_foreign_key "follows", "users", column: "following_id", primary_key: "email"
-  add_foreign_key "genres_songs", "genres"
-  add_foreign_key "genres_songs", "songs"
-  add_foreign_key "interactions", "users", primary_key: "email"
-  add_foreign_key "playlists", "users", primary_key: "email"
-  add_foreign_key "playlists_songs", "playlists"
-  add_foreign_key "playlists_songs", "songs"
-  add_foreign_key "song_composes_albums", "albums"
-  add_foreign_key "song_composes_albums", "songs"
+  add_foreign_key "albums", "artists", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "albums_genres", "albums", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "albums_genres", "genres", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "artist_perform_songs", "artists", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "artist_perform_songs", "songs", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "artists_genres", "artists", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "artists_genres", "genres", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "follows", "users", column: "follower_id", primary_key: "email", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "follows", "users", column: "following_id", primary_key: "email", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "genres_songs", "genres", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "genres_songs", "songs", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "interactions", "users", primary_key: "email", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "playlists", "users", primary_key: "email", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "playlists_songs", "playlists", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "playlists_songs", "songs", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "song_composes_albums", "albums", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "song_composes_albums", "songs", on_update: :cascade, on_delete: :cascade
 end

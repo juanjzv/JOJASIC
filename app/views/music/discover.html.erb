@@ -29,6 +29,7 @@
             <th>Artista</th>
             <th>Géneros</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +44,12 @@
             <% end %>
             </td>
             <td><%= audio_tag s.song_file.url, controls: true %></td>
+            <td>
+              <button class="button button-like" data-song-id="<%= s.id %>">
+                <i class="fa fa-heart"></i>
+                <span>Like</span>
+              </button>
+            </td>
           </tr>
         <% end %>
         </tbody>
