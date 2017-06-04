@@ -36,8 +36,8 @@
         <% for s in @new_songs do %>
           <tr>
             <td><%= s.name %></td>
-            <td><%= s.albums[0].name %></td>
-            <td><%= s.albums[0].artist.name %></td>
+            <td><%unless s.albums[0].nil? %><%= s.albums[0].name %><% end %></td>
+            <td><%unless s.albums[0].nil? %><%= s.albums[0].artist.name %><% end %></td>
             <td>
             <% for g in s.genres do %>
               <%= g.name %>

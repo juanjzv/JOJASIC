@@ -1,12 +1,28 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  after_action :verify_authorized, only: [:edit, :update, :destroy]
-
+  after_action :verify_authorized, only: [:edit, :update, :destroy, :add_song]
+  require 'json'
   # GET /playlists
   # GET /playlists.json
   def index
     @playlists = Playlist.all
+  end
+
+  # POST /playlists/1/songs/1
+  def add_song
+    authorize @playlist
+    @song = Song.find(params[:id])
+    respond_to do |format|
+      if not @song.nil? and not @playlist.has_song?(@song)
+        @playlist.songs << @song
+        format.html { redirect_to @playlist, notice: 'Se agregó la canción a la playlist' }
+        format.json { render json: {message: 'Cancion agregada', status: :ok} }
+      else
+        format.html { render :edit }
+        format.json { render json: {message: 'No se agrego cancion'} }
+      end
+    end
   end
 
   # GET /playlists/1

@@ -8,6 +8,13 @@ class Album < ApplicationRecord
   has_attached_file :image
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
 
+  def has_song? song
+    songs = self.songs
+    songs.each do |s|
+      return true if s == song
+    end
+  end
+
   # 'class << self' allows inside methods to be called as Son.[method_name].
   class << self
     def in_order

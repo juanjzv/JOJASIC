@@ -20,5 +20,9 @@
 
 # Ignore application configuration
 /config/application.yml
+
+#Ignore paperclip handled files
 /app/assets/audios/
 /public/system/songs/
+/public/system/albums/
+/public/system/users/

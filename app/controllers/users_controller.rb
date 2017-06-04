@@ -13,25 +13,31 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])#.includes(:interactions)
+    @user = User.includes(:interactions).find(params[:id])
     # @likes = @user.interactions.where(kind: :like)
+    @liked_songs = []
+    @liked_albums = []
+    @liked_playlists = []
+    @liked_artists = []
     @playlists = @user.playlists
-    @liked_songs = @user.interactions.where(kind: :like, interactable_type: :song)
-    @liked_albums = @user.interactions.where(kind: :like, interactable_type: :album)
-    @liked_playlists = @user.interactions.where(kind: :like, interactable_type: :playlist)
-    @liked_artist = @user.interactions.where(kind: :like, interactable_type: :artist)
+    @user.interactions.each do |i|
+      @liked_songs << i if i.kind == :like and i.interactable_type == :song
+      @liked_songs << i if i.kind == :like and i.interactable_type == :song
+      @liked_songs << i if i.kind == :like and i.interactable_type == :song
+      @liked_songs << i if i.kind == :like and i.interactable_type == :song
+    end
 
   end
 
   # GET /users/1/edit
   def edit
-
+    authorize @user
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    athorize @user
+    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -62,6 +68,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.fetch(:user, {})
+      params.require(:user).permit(:username, :email, :avatar)
     end
 end
